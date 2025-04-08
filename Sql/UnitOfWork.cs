@@ -1,6 +1,6 @@
-﻿using System;
-using System.Data;
-using System.Data.SqlClient;
+﻿using System.Data;
+
+using Microsoft.Data.SqlClient;
 
 namespace dotnet_api_extensions.Sql
 {
