@@ -3,10 +3,11 @@
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
-    <RootNamespace>dotnet_api_extensions</RootNamespace>
+    <RootNamespace>$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
     <UserSecretsId>8a4bdf81-338c-4908-b698-8a520d8eb9e9</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerfileContext>.</DockerfileContext>
+    <OutputType>Library</OutputType>
   </PropertyGroup>
 
   <ItemGroup>
