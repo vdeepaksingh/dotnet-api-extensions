@@ -9,9 +9,9 @@ namespace dotnet_api_extensions.Request
     /// </summary>
     internal class RequestContextAccessor : IRequestContextAccessor
     {
-        private readonly AsyncLocal<HttpCookieWrapper> _requestHttpCookie = new AsyncLocal<HttpCookieWrapper>();
-        private readonly AsyncLocal<OAuthTokenWrapper> _requestOAuthToken = new AsyncLocal<OAuthTokenWrapper>();
-        private readonly AsyncLocal<UserInfo> _loggedInUser = new AsyncLocal<UserInfo>();
+        private readonly AsyncLocal<HttpCookieWrapper> _requestHttpCookie = new();
+        private readonly AsyncLocal<OAuthTokenWrapper> _requestOAuthToken = new();
+        private readonly AsyncLocal<UserInfo> _loggedInUser = new();
 
         internal string AuthCookieName { get; set; }
 

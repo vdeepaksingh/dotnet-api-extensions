@@ -1,6 +1,6 @@
-﻿using System;
-using System.Data;
-using System.Data.SqlClient;
+﻿using System.Data;
+
+using Microsoft.Data.SqlClient;
 
 namespace dotnet_api_extensions.Sql
 {
@@ -8,22 +8,17 @@ namespace dotnet_api_extensions.Sql
     /// This class manages the database transactions, and is a must for all repositories.
     /// The transaction is created when first required, and is closed at the end of the request
     /// </summary>
-    public class UnitOfWork : IUnitOfWork
+    public class UnitOfWork(SqlDbConnectionFactory sqlDbConnectionFactory) : IUnitOfWork
     {
-        private readonly SqlDbConnectionFactory _sqlDbConnectionFactory;
+        private readonly SqlDbConnectionFactory _sqlDbConnectionFactory = sqlDbConnectionFactory;
         private SqlConnection _sqlConnection;
         private SqlTransaction _sqlTransaction;
         private bool _alreadyCommittedOrRolledback;
         private IsolationLevel _isolationLevel = IsolationLevel.Unspecified; //Default value
 
         //These locks are needed so that multiple threads using same unitofwork do not break connection/transaction pair
-        private readonly object _lockObjConn = new object();
-        private readonly object _lockObjTran = new object();
-
-        public UnitOfWork(SqlDbConnectionFactory sqlDbConnectionFactory)
-        {
-            _sqlDbConnectionFactory = sqlDbConnectionFactory;
-        }
+        private readonly object _lockObjConn = new();
+        private readonly object _lockObjTran = new();
 
         public SqlConnection Connection
         {
@@ -120,6 +115,8 @@ namespace dotnet_api_extensions.Sql
             }
             _sqlTransaction?.Dispose();
             _sqlConnection?.Dispose();
+
+            GC.SuppressFinalize(this);
         }
 
         private void CheckIfAlreadyCommittedOrRolledback()
