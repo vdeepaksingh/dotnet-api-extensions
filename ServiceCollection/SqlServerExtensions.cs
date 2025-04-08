@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 namespace dotnet_api_extensions.ServiceCollection
 {
     /// <summary>
-    /// Extensions around Musafir.Libaries.SqlServer and SqlServer healthchecks
+    /// Extensions around SqlServer and SqlServer healthchecks
     /// </summary>
     public static class SqlServerExtensions
     {
